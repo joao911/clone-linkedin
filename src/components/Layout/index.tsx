@@ -1,29 +1,37 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+
 import MobileHeader from '../MobileHeader';
+import DesktopHeader from '../DesckTopHeader';
+import AdBanner from '../AddBanner';
 import LeftColumn from '../LeftColumn';
 import MiddleColumn from '../MiddleColumn';
 import RightColumn from '../RightColumn';
-import DesckTopHeader from '../DesckTopHeader';
-import AddBanner from '../AddBanner'
 
 import { Container } from './styles';
 
-const layout: React.FC = () => {
+const Layout: React.FC = () => {
+  const [isLoading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+       setLoading(false);
+    }, 3000);
+  }, []);
+
   return (
     <Container>
-      <MobileHeader/>
-      <DesckTopHeader/>
-      <span>
-        <AddBanner/>
-      </span>
-      
+      <MobileHeader />
+      <DesktopHeader />
+
+      <span>{!isLoading && <AdBanner />}</span>
+
       <main>
-       <LeftColumn/>
-       <MiddleColumn/>
-       <RightColumn/>
+        <LeftColumn isLoading={isLoading} />
+        <MiddleColumn isLoading={isLoading}/>
+        <RightColumn isLoading={isLoading}/>
       </main>
     </Container>
   );
-}
+};
 
-export default layout;
+export default Layout;
